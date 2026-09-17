@@ -14,12 +14,12 @@ MAIL_PASSWORD = os.environ["MAIL_PASSWORD"]
 MAIL_TO = os.environ["MAIL_TO"]
 
 msg = MIMEMultipart()
-msg["Subject"] = "NDK_STOCK_CSV_AUTO"
+msg["Subject"] = "sitime_STOCK_CSV_AUTO"
 msg["From"] = MAIL_FROM
 msg["To"] = MAIL_TO
 
 # 本文
-msg.attach(MIMEText("本日のNDK株価CSVを添付します。", "plain", "utf-8"))
+msg.attach(MIMEText("本日のsitime株価CSVを添付します。", "plain", "utf-8"))
 
 # CSV添付
 with open(CSV_FILE, "rb") as f:
