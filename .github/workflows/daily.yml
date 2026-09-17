@@ -1,0 +1,59 @@
+
+name: Daily NDK Stock Auto
+
+on:
+  schedule:
+    # JST 18:00 = UTC 09:00
+    - cron: '0 9 * * 1-5'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fetch-stock:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. リポジトリを取得（履歴フル）
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # 2. Python セットアップ
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      # 3. リモートと同期（CSV生成前に実施）
+      - name: Sync with remote
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          git pull --rebase origin main
+
+      # 4. 依存関係インストール
+      - name: Install dependencies
+        run: |
+          pip install pandas requests
+
+      # 5. 株価取得スクリプト実行
+      - name: Run stock fetch script
+        run: python fetch_stock.py
+
+      # 6. CSV をコミット & push
+      - name: Commit CSV
+        run: |
+          git add ndk_stock.csv
+          git commit -m "Update stock CSV" || echo "No changes to commit"
+          git push
+
+      # 7. メール送信（Secrets を環境変数として渡す）
+      - name: Send mail
+        run: python send_mail.py
+        env:
+          MAIL_FROM: ${{ secrets.MAIL_FROM }}
+          MAIL_PASSWORD: ${{ secrets.MAIL_PASSWORD }}
+          MAIL_TO: ${{ secrets.MAIL_TO }}
