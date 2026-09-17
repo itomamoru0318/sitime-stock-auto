@@ -7,7 +7,7 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.base import MIMEBase
 from email import encoders
 
-CSV_FILE = "ndk_stock.csv"
+CSV_FILE = "sitime_stock.csv"
 
 MAIL_FROM = os.environ["MAIL_FROM"]
 MAIL_PASSWORD = os.environ["MAIL_PASSWORD"]
