@@ -31,7 +31,7 @@ df = pd.DataFrame([{
 }])
 
 # === CSV保存（リポジトリに上書き） ===
-csv_path = "ndk_stock.csv"
+csv_path = "sitime_stock.csv"
 df.to_csv(csv_path, index=False)
 
 print("CSV generated:")
