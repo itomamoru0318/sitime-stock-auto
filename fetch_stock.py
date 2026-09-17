@@ -4,8 +4,8 @@ import pandas as pd
 from datetime import datetime
 
 # === 設定 ===
-SYMBOL = "TSE:6779"
-URL = "https://scanner.tradingview.com/japan/scan"
+SYMBOL = "NASDAQ:SITM"
+URL = "https://scanner.tradingview.com/america/scan"
 
 payload = {
     "symbols": {"tickers": [SYMBOL], "query": {"types": []}},
