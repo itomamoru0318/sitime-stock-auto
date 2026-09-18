@@ -46,7 +46,7 @@ jobs:
       # 6. CSV をコミット & push
       - name: Commit CSV
         run: |
-          git add ndk_stock.csv
+          git add SiTime_stock.csv
           git commit -m "Update stock CSV" || echo "No changes to commit"
           git push
 
