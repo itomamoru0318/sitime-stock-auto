@@ -1,6 +1,6 @@
 
 name: Daily SiTime Stock Auto
-
+# Maintenance: 2026-11-10
 on:
   schedule:
     # JST 10:00 = UTC 01:00
